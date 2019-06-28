@@ -54,14 +54,14 @@ namespace TicTacToe
             {
                 for (int p = 0; p < b; p++)
                 {
-                    if (field[p, i - 2] == 'X' && field[p, i - 1] == 'X' && field[p, i] == 'X') { Console.WriteLine("Победа 1 игрока"); return true; }// 3 в ряд
+                    if (field[p, i - 2] == 'X' && field[p, i - 1] == 'X' && field[p, i] == 'X') { Console.WriteLine("Победа 1 игрока"); return false; }// 3 в ряд
                 }
             }
             for (int i = 2; i < a; i++)
             {
                 for (int p = 0; p < b; p++)
                 {
-                    if (field[i - 2, p] == 'X' && field[i - 1, p] == 'X' && field[i, p] == 'X') { Console.WriteLine("Победа 1 игрока"); return true; }// 3  по вертикали
+                    if (field[i - 2, p] == 'X' && field[i - 1, p] == 'X' && field[i, p] == 'X') { Console.WriteLine("Победа 1 игрока"); return false; }// 3  по вертикали
                 }
             }
 
@@ -69,17 +69,17 @@ namespace TicTacToe
             {
                 for (int p = 2; p < b; p++)
                 {
-                    if (field[i - 2, p - 2] == 'X' && field[i - 1, p - 1] == 'X' && field[i, p] == 'X') { Console.WriteLine("Победа 1 игрока"); return true; }// 3  по диаганали
+                    if (field[i - 2, p - 2] == 'X' && field[i - 1, p - 1] == 'X' && field[i, p] == 'X') { Console.WriteLine("Победа 1 игрока"); return false; }// 3  по диаганали
                 }
             }
             for (int i = 2; i < a; i++)
             {
                 for (int p = 2; p < b; p++)
                 {
-                    if (field[p - 2, i] == 'X' && field[p - 1, i - 1] == 'X' && field[p, i - 2] == 'X') { Console.WriteLine("Победа 1 игрока"); return true; }
+                    if (field[p - 2, i] == 'X' && field[p - 1, i - 1] == 'X' && field[p, i - 2] == 'X') { Console.WriteLine("Победа 1 игрока"); return false; }
                 }
             }
-            return false;
+            return true;
         }
         static bool Win2()
         {
@@ -88,14 +88,14 @@ namespace TicTacToe
             {
                 for (int p = 0; p < b; p++)
                 {
-                    if (field[p, i - 2] == 'O' && field[p, i - 1] == 'O' && field[p, i] == 'O') { Console.WriteLine("Победа 1 игрока"); return true; }// 3 в ряд
+                    if (field[p, i - 2] == 'O' && field[p, i - 1] == 'O' && field[p, i] == 'O') { Console.WriteLine("Победа 1 игрока"); return false; }// 3 в ряд
                 }
             }
             for (int i = 2; i < a; i++)
             {
                 for (int p = 0; p < b; p++)
                 {
-                    if (field[i - 2, p] == 'O' && field[i - 1, p] == 'O' && field[i, p] == 'O') { Console.WriteLine("Победа 1 игрока"); return true; }// 3  по вертикали
+                    if (field[i - 2, p] == 'O' && field[i - 1, p] == 'O' && field[i, p] == 'O') { Console.WriteLine("Победа 1 игрока"); return false; }// 3  по вертикали
                 }
             }
 
@@ -103,31 +103,31 @@ namespace TicTacToe
             {
                 for (int p = 2; p < b; p++)
                 {
-                    if (field[i - 2, p - 2] == 'O' && field[i - 1, p - 1] == 'O' && field[i, p] == 'O') { Console.WriteLine("Победа 1 игрока"); return true; }// 3  по диаганали
+                    if (field[i - 2, p - 2] == 'O' && field[i - 1, p - 1] == 'O' && field[i, p] == 'O') { Console.WriteLine("Победа 1 игрока"); return false; }// 3  по диаганали
                 }
             }
             for (int i = 2; i < a; i++)
             {
                 for (int p = 2; p < b; p++)
                 {
-                    if (field[p - 2, i] == 'O' && field[p - 1, i - 1] == 'O' && field[p, i - 2] == 'O') { Console.WriteLine("Победа 1 игрока"); return true; }
+                    if (field[p - 2, i] == 'O' && field[p - 1, i - 1] == 'O' && field[p, i - 2] == 'O') { Console.WriteLine("Победа 1 игрока"); return false; }
                 }
             }
-            return false;
+            return true;
         }
         static void Twoplayers()
         {
-            while (true)
+            while (Win()!= false)// || Win2() != false)
             {
-                if (Win() != false || Win2() != false)
-                {
-                    break;
-                }
+                //if (Win() != false || Win2() != false)
+                //{
+                //    break;
+                //}
                 Move1(field);
-                if (Win() != false|| Win2() != false)
-                {
-                    break;
-                }
+                //if (Win() != false|| Win2() != false)
+                //{
+                //    break;
+                //}
                 Move2(field);
             }
         }
