@@ -123,12 +123,16 @@ namespace TicTacToe
         {
             while (true)
             {
-                Move1(field);
-                if (Win() != false)//|| Win2() != false)
+                if (Win() != false || Win2() != false)
                 {
                     break;
                 }
-                //Move2();
+                Move1(field);
+                if (Win() != false|| Win2() != false)
+                {
+                    break;
+                }
+                Move2(field);
             }
         }
         static void Move1(char[,] field)//Доработаю
@@ -145,6 +149,26 @@ namespace TicTacToe
                 Console.Write(" |");
 
                 for (int y = 0; y < b ; y++)
+                {
+                    Console.Write(field[t, y] + "|");
+                }
+                Console.WriteLine();
+            }
+        }
+        static void Move2(char[,] field)//Доработаю
+        {
+            Console.WriteLine("ход 2 игрока");
+            Console.WriteLine("укажите столбик:");
+            int move2 = int.Parse(Console.ReadLine()) - 1;
+            Console.WriteLine("укажите ряд:");
+            int move = int.Parse(Console.ReadLine()) - 1;
+
+            field[move, move2] = 'O';
+            for (int t = 0; t < a; t++)
+            {
+                Console.Write(" |");
+
+                for (int y = 0; y < b; y++)
                 {
                     Console.Write(field[t, y] + "|");
                 }
