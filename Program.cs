@@ -35,10 +35,6 @@ namespace TicTacToe
                 }
                 Console.WriteLine();
             }
-            Startthegame();
-        }
-        static void Startthegame()
-        {
             Console.WriteLine("1 или 2 игрока?");
             int Player = int.Parse(Console.ReadLine());
             if (Player == 1)
@@ -144,26 +140,10 @@ namespace TicTacToe
             int move = int.Parse(Console.ReadLine())-1;
 
             field[move, move2] = 'X';
-            for (int t = 0; t < a ; t++)
-            {
-                Console.Write(" |");
-
-                for (int y = 0; y < b ; y++)
-                {
-                    Console.Write(field[t, y] + "|");
-                }
-                Console.WriteLine();
-            }
+            Move(field);
         }
-        static void Move2(char[,] field)//Доработаю
-        {
-            Console.WriteLine("ход 2 игрока");
-            Console.WriteLine("укажите столбик:");
-            int move2 = int.Parse(Console.ReadLine()) - 1;
-            Console.WriteLine("укажите ряд:");
-            int move = int.Parse(Console.ReadLine()) - 1;
-
-            field[move, move2] = 'O';
+        static void Move(char[,] field)//Доработаю
+        {                        
             for (int t = 0; t < a; t++)
             {
                 Console.Write(" |");
@@ -174,6 +154,18 @@ namespace TicTacToe
                 }
                 Console.WriteLine();
             }
+        }
+
+        static void Move2(char[,] field)//Доработаю
+        {
+            Console.WriteLine("ход 2 игрока");
+            Console.WriteLine("укажите столбик:");
+            int move2 = int.Parse(Console.ReadLine()) - 1;
+            Console.WriteLine("укажите ряд:");
+            int move = int.Parse(Console.ReadLine()) - 1;
+
+            field[move, move2] = 'O';
+            Move(field);
         }
 
     }
