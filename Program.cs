@@ -12,6 +12,7 @@ namespace TicTacToe
     {
         static int a;
         static int b;
+        static int i;
         public static char[,] field;
         static void Main(string[] args)
         {
@@ -23,7 +24,7 @@ namespace TicTacToe
             Console.WriteLine("Привецтвую вас лUSERы");
             Console.ReadKey(true);
             Console.WriteLine("Выберите размер поля");
-            a = b = int.Parse(Console.ReadLine());
+            a = b = Parse();
             field = new char[a, b];
             for (int t = 0; t < a; t++)
             {
@@ -36,12 +37,16 @@ namespace TicTacToe
                 Console.WriteLine();
             }
             Console.WriteLine("1 или 2 игрока?");
-            int Player = int.Parse(Console.ReadLine());
+            int Player = Parse();
             if (Player == 1)
             {
                 Oneplayer();
             }
             else { Twoplayers(); }
+        }
+        static int Parse() {
+            return int.Parse(Console.ReadLine());
+            
         }
         static void Oneplayer()
         {
@@ -117,17 +122,13 @@ namespace TicTacToe
         }
         static void Twoplayers()
         {
-            while (Win()!= false)// || Win2() != false)
-            {
-                //if (Win() != false || Win2() != false)
-                //{
-                //    break;
-                //}
+            while (Win()!= false || Win2() != false)
+            {                
                 Move1(field);
-                //if (Win() != false|| Win2() != false)
-                //{
-                //    break;
-                //}
+                if (Win() != false || Win2() != false)
+                {
+                    break;
+                }
                 Move2(field);
             }
         }
@@ -135,9 +136,9 @@ namespace TicTacToe
         {
             Console.WriteLine("ход 1 игрока");
             Console.WriteLine("укажите столбик:");
-            int move2 = int.Parse(Console.ReadLine())-1;
+            int move2 = Parse()-1;
             Console.WriteLine("укажите ряд:");
-            int move = int.Parse(Console.ReadLine())-1;
+            int move = Parse()-1;
 
             field[move, move2] = 'X';
             Move(field);
@@ -160,9 +161,9 @@ namespace TicTacToe
         {
             Console.WriteLine("ход 2 игрока");
             Console.WriteLine("укажите столбик:");
-            int move2 = int.Parse(Console.ReadLine()) - 1;
+            int move2 = Parse() - 1;
             Console.WriteLine("укажите ряд:");
-            int move = int.Parse(Console.ReadLine()) - 1;
+            int move = Parse() - 1;
 
             field[move, move2] = 'O';
             Move(field);
