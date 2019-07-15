@@ -12,6 +12,8 @@ namespace TicTacToe
     {
         static int a;
         static int b;
+        static int i2;
+        static int p2;
         public static char[,] field;
         char Firstplaersumbol;
 
@@ -32,7 +34,7 @@ namespace TicTacToe
         }
         static int UserInput()
         {
-            return int.Parse(Console.ReadLine())-1;
+            return int.Parse(Console.ReadLine());
         }        
         static void TwoPlayers()
         {
@@ -60,10 +62,10 @@ namespace TicTacToe
         static void PlayersStep(char[,] field,char Firstplaersumbol)//Доработаю
         {
             Console.WriteLine("укажите столбик:");
-            int move2 = UserInput();
+            int move2 = UserInput()-1;
 
             Console.WriteLine("укажите ряд:");
-            int move = UserInput();
+            int move = UserInput()-1;
 
             field[move, move2] = Firstplaersumbol;
         }
@@ -87,29 +89,20 @@ namespace TicTacToe
             {
                 for (int p = 0; p < b; p++)
                 {
-                    if (field[p, i - 2] == plaerSumbol && field[p, i - 1] == plaerSumbol && field[p, i] == plaerSumbol) { Console.WriteLine("Победа 1 игрока"); return true; }// 3 в ряд
-                }
-            }
-            for (int i = 2; i < a; i++)
-            {
-                for (int p = 0; p < b; p++)
-                {
-                    if (field[i - 2, p] == plaerSumbol && field[i - 1, p] == plaerSumbol && field[i, p] == plaerSumbol) { Console.WriteLine("Победа 1 игрока"); return true; }// 3  по вертикали
-                }
-            }
-
-            for (int i = 2; i < a; i++)
-            {
+                    i2 = i; p2 = p;
+                    if (field[p, i - 2] == plaerSumbol && field[p, i - 1] == plaerSumbol && field[p, i] == plaerSumbol) { return true; }// 3 в ряд
+                    i = i2; p = p2;
+                    if (field[i - 2, p] == plaerSumbol && field[i - 1, p] == plaerSumbol && field[i, p] == plaerSumbol) {  return true; }// 3  по вертикали
+                    //i = i2; p = p2;
+                    //if (field[i - 2, p - 2] == plaerSumbol && field[i - 1, p - 1] == plaerSumbol && field[i, p] == plaerSumbol) { return true; }// 3  по диаганали
+                    //i = i2; p = p2;
+                }           
                 for (int p = 2; p < b; p++)
                 {
-                    if (field[i - 2, p - 2] == plaerSumbol && field[i - 1, p - 1] == plaerSumbol && field[i, p] == plaerSumbol) { Console.WriteLine("Победа 1 игрока"); return true; }// 3  по диаганали
-                }
-            }
-            for (int i = 2; i < a; i++)
-            {
-                for (int p = 2; p < b; p++)
-                {
-                    if (field[p - 2, i] == plaerSumbol && field[p - 1, i - 1] == plaerSumbol && field[p, i - 2] == plaerSumbol) { Console.WriteLine("Победа 1 игрока"); return true; }
+                    i2 = i; p2 = p;
+                    if (field[i - 2, p - 2] == plaerSumbol && field[i - 1, p - 1] == plaerSumbol && field[i, p] == plaerSumbol) { return true; }// 3  по диаганали
+                    i = i2; p = p2;
+                    if (field[p - 2, i] == plaerSumbol && field[p - 1, i - 1] == plaerSumbol && field[p, i - 2] == plaerSumbol) { return true; }
                 }
             }
             return false;
