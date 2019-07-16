@@ -53,24 +53,26 @@ namespace TicTacToe
             {                
                 Console.WriteLine("ход 1 игрока");
                 PrintField(field);
-                PlayersStep(field,'X');               
+                PlayersStep(field,'X');
+                Console.Clear();
                 if (Win('X') == true)
                 {
                     Console.WriteLine("Победа 1 игрока");
                     firstPlayerToWin++;
                     Console.ReadKey(true);
-                    Console.Clear();
+                    //Console.Clear();
                     break;
                 }
-                //Console.WriteLine("ход 2 игрока");
-                //PrintField(field);
-                //PlayersStep(field, 'O');
-                //if (Win('O') == true)
-                //{
-                //    Console.WriteLine("Победа 2 игрока");
-                //    secondPlayerToWin++;
-                //    break;
-                //}
+                Console.WriteLine("ход 2 игрока");
+                PrintField(field);
+                PlayersStep(field, 'O');
+                Console.Clear();
+                if (Win('O') == true)
+                {
+                    Console.WriteLine("Победа 2 игрока");
+                    secondPlayerToWin++;
+                    break;
+                }
             }
         }
         static void PlayersStep(char[,] field,char Firstplaersumbol)//Доработаю
@@ -127,9 +129,7 @@ namespace TicTacToe
         }
         static void CounterWins()
         {
-            Console.WriteLine("Побед 1 игрока:" + firstPlayerToWin);
-            Console.WriteLine("Побед 2 игрока:" + secondPlayerToWin);
+            Console.WriteLine(firstPlayerToWin + '/' + secondPlayerToWin);
         }
-        //public static void Clear();
     }
 }
