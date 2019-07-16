@@ -15,6 +15,7 @@ namespace TicTacToe
         static int b;
         static int i2;
         static int p2;
+        static int x;
         static int firstPlayerToWin;
         static int secondPlayerToWin;
         public static char[,] field;
@@ -77,10 +78,11 @@ namespace TicTacToe
         }
         static void PlayersStep(char[,] field,char Firstplaersumbol)//Доработаю
         {
-            Console.WriteLine("укажите столбик:");
-            int move2 = UserInput()-1;
-            Console.WriteLine("укажите ряд:");
-            int move = UserInput()-1;
+            Console.WriteLine("укажите столбик и ряд через пробел:");
+            string s = Console.ReadLine();
+            string[] array = s.Split(' ');
+            int move2 = (Int32.Parse(array[0]))-1;
+            int move = (Int32.Parse(array[1]))-1;
             field[move, move2] = Firstplaersumbol;
         }
         static void PrintField(char[,] field)//Доработаю
@@ -129,7 +131,15 @@ namespace TicTacToe
         }
         static void CounterWins()
         {
-            Console.WriteLine(firstPlayerToWin + '/' + secondPlayerToWin);
+            Console.WriteLine(firstPlayerToWin +  " / " + secondPlayerToWin);
+        }
+        static void Reader(string e) // Разбивает строку на слова через прбел 
+        {           
+            string[] ArrayReadConsole = e.Split(' ');           
+            foreach (var word in ArrayReadConsole)
+            {
+                x = Int32.Parse(word);
+            }            
         }
     }
 }
