@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 
 
+
 namespace TicTacToe
 {
     class Program
@@ -31,7 +32,6 @@ namespace TicTacToe
             Console.WriteLine("Выберите размер поля");
             a = b = UserInput();
             field = new char[a, b];
-            //PrintField(field);
             while (true)
             {
                 TwoPlayers();
@@ -39,7 +39,7 @@ namespace TicTacToe
                 Console.WriteLine();
                 CounterWins();
                 Console.WriteLine();
-                PrintField(field);
+                //PrintField(field);
             }
         }
         static int UserInput()
@@ -58,17 +58,19 @@ namespace TicTacToe
                 {
                     Console.WriteLine("Победа 1 игрока");
                     firstPlayerToWin++;
+                    Console.ReadKey(true);
+                    Console.Clear();
                     break;
                 }
-                Console.WriteLine("ход 2 игрока");
-                PrintField(field);
-                PlayersStep(field, 'O');
-                if (Win('O') == true)
-                {
-                    Console.WriteLine("Победа 2 игрока");
-                    secondPlayerToWin++;
-                    break;
-                }
+                //Console.WriteLine("ход 2 игрока");
+                //PrintField(field);
+                //PlayersStep(field, 'O');
+                //if (Win('O') == true)
+                //{
+                //    Console.WriteLine("Победа 2 игрока");
+                //    secondPlayerToWin++;
+                //    break;
+                //}
             }
         }
         static void PlayersStep(char[,] field,char Firstplaersumbol)//Доработаю
@@ -128,5 +130,6 @@ namespace TicTacToe
             Console.WriteLine("Побед 1 игрока:" + firstPlayerToWin);
             Console.WriteLine("Побед 2 игрока:" + secondPlayerToWin);
         }
+        //public static void Clear();
     }
 }
