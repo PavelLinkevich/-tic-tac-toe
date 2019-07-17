@@ -11,8 +11,8 @@ namespace TicTacToe
 {
     class Program
     {
-        static int a;
-        static int b;
+        static int a = 4;
+        static int b = 4;
         static int i2;
         static int p2;
         static int x;
@@ -23,15 +23,34 @@ namespace TicTacToe
 
         static void Main(string[] args)
         {
-            CreatePlayingField();
+            InitialScreen();           
             Console.ReadKey(true);
         }
-        static void CreatePlayingField()
+        static void InitialScreen()
         {
             Console.WriteLine("Привецтвую вас лUSERы");
             Console.ReadKey(true);
-            Console.WriteLine("Выберите размер поля");
-            a = b = UserInput();
+            int initialСhoice;
+           // Console.WriteLine("Введите порядковый номер дня недели:");
+            Console.WriteLine("1)Играть");
+            Console.WriteLine("2)Войти");
+            Console.WriteLine("3)Настройки");
+            initialСhoice = Convert.ToInt32(Console.ReadLine());
+            switch (initialСhoice)
+            {
+                case 1:
+                    CreatePlayingField();
+                    break;
+                case 2:
+                    CheckIn();
+                    break;
+                case 3:
+                    Options();
+                    break;
+            }
+        }
+        static void CreatePlayingField()
+        {
             field = new char[a, b];
             while (true)
             {
@@ -40,7 +59,6 @@ namespace TicTacToe
                 Console.WriteLine();
                 CounterWins();
                 Console.WriteLine();
-                //PrintField(field);
             }
         }
         static int UserInput()
@@ -133,13 +151,29 @@ namespace TicTacToe
         {
             Console.WriteLine(firstPlayerToWin +  " / " + secondPlayerToWin);
         }
-        static void Reader(string e) // Разбивает строку на слова через прбел 
-        {           
-            string[] ArrayReadConsole = e.Split(' ');           
-            foreach (var word in ArrayReadConsole)
-            {
-                x = Int32.Parse(word);
-            }            
+        static void CheckIn()
+        {
+            Console.WriteLine("Имя главного игрока:");
+            string mainPlayerName = Console.ReadLine();
+            Console.WriteLine("Имя второго игрока:");
+            string playerNameSecond = Console.ReadLine();
+            FileStream file1 = new FileStream("E:\\Name\\" + mainPlayerName + ".txt", FileMode.OpenOrCreate); //создаем файловый поток
+            StreamWriter writer = new StreamWriter(file1); //создаем «потоковый писатель» и связываем его с файловым потоком 
+            writer.Write(a /*fieldSize*/); //записываем в файл
+            writer.Close(); //закрываем поток. Не закрыв поток, в файл ничего не запишется 
+            Console.WriteLine("Для возвращения в меню нажмите любую клавишу..");
+            Console.ReadKey(true);
+            Console.Clear();
+            InitialScreen();
+        }
+        static void Options()
+        {
+            Console.WriteLine("Выберите размер поля");
+            a = b = UserInput();
+            Console.WriteLine("Для возвращения в меню нажмите любую клавишу...");
+            Console.ReadKey(true);
+            Console.Clear();
+            InitialScreen();
         }
     }
 }
