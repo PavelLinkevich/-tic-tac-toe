@@ -11,11 +11,11 @@ namespace TicTacToe
 {
     class Program
     {
-        static int a = 4;
-        static int b = 4;
-        static int i2;
-        static int p2;
-        static int x;
+        static int width = 4;
+        static int length = 4;
+        static int pastMeaningI;
+        static int pastMeaningP;
+
         static int firstPlayerToWin;
         static int secondPlayerToWin;
         public static char[,] field;
@@ -51,7 +51,7 @@ namespace TicTacToe
         }
         static void CreatePlayingField()
         {
-            field = new char[a, b];
+            field = new char[width, length];
             while (true)
             {
                 TwoPlayers();
@@ -79,7 +79,6 @@ namespace TicTacToe
                     Console.WriteLine("Победа 1 игрока");
                     firstPlayerToWin++;
                     Console.ReadKey(true);
-                    //Console.Clear();
                     break;
                 }
                 Console.WriteLine("ход 2 игрока");
@@ -105,10 +104,10 @@ namespace TicTacToe
         }
         static void PrintField(char[,] field)//Доработаю
         {
-            for (int t = 0; t < a; t++)
+            for (int t = 0; t < width; t++)
             {
                 Console.Write(" |");
-                for (int y = 0; y < b; y++)
+                for (int y = 0; y < length; y++)
                 {
                     Console.Write(field[t, y] + "|");
                 }
@@ -117,9 +116,9 @@ namespace TicTacToe
         }
         static void FieldCleaning(char[,] field)//Доработаю
         {
-            for (int t = 0; t < a; t++)
+            for (int t = 0; t < width; t++)
             {
-                for (int y = 0; y < b; y++)
+                for (int y = 0; y < length; y++)
                 {
                     Console.Write(field[t, y] = ' ');
                 }
@@ -128,20 +127,20 @@ namespace TicTacToe
         static bool Win(char plaerSumbol)
         {
 
-            for (int i = 2; i < a; i++)
+            for (int i = 2; i < width; i++)
             {
-                for (int p = 0; p < b; p++)
+                for (int p = 0; p < length; p++)
                 {
-                    i2 = i; p2 = p;
+                    pastMeaningI = i; pastMeaningP = p;
                     if (field[p, i - 2] == plaerSumbol && field[p, i - 1] == plaerSumbol && field[p, i] == plaerSumbol) { return true; }// 3 в ряд
-                    i = i2; p = p2;
+                    i = pastMeaningI; p = pastMeaningP;
                     if (field[i - 2, p] == plaerSumbol && field[i - 1, p] == plaerSumbol && field[i, p] == plaerSumbol) {  return true; }// 3  по вертикали                   
                 }           
-                for (int p = 2; p < b; p++)
+                for (int p = 2; p < length; p++)
                 {
-                    i2 = i; p2 = p;
+                    pastMeaningI = i; pastMeaningP = p;
                     if (field[i - 2, p - 2] == plaerSumbol && field[i - 1, p - 1] == plaerSumbol && field[i, p] == plaerSumbol) { return true; }// 3  по диаганали
-                    i = i2; p = p2;
+                    i = pastMeaningI; p = pastMeaningP;
                     if (field[p - 2, i] == plaerSumbol && field[p - 1, i - 1] == plaerSumbol && field[p, i - 2] == plaerSumbol) { return true; }
                 }
             }
@@ -159,7 +158,7 @@ namespace TicTacToe
             string playerNameSecond = Console.ReadLine();
             FileStream file1 = new FileStream("E:\\Name\\" + mainPlayerName + ".txt", FileMode.OpenOrCreate); //создаем файловый поток
             StreamWriter writer = new StreamWriter(file1); //создаем «потоковый писатель» и связываем его с файловым потоком 
-            writer.Write(a /*fieldSize*/); //записываем в файл
+            writer.Write(width /*fieldSize*/); //записываем в файл
             writer.Close(); //закрываем поток. Не закрыв поток, в файл ничего не запишется 
             Console.WriteLine("Для возвращения в меню нажмите любую клавишу..");
             Console.ReadKey(true);
@@ -169,7 +168,7 @@ namespace TicTacToe
         static void Options()
         {
             Console.WriteLine("Выберите размер поля");
-            a = b = UserInput();
+            width = length = UserInput();
             Console.WriteLine("Для возвращения в меню нажмите любую клавишу...");
             Console.ReadKey(true);
             Console.Clear();
