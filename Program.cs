@@ -9,13 +9,11 @@ using System.IO;
 
 namespace TicTacToe
 {
-    class Program
+   public class Start
     {
-        static int width = 4;
-        static int length = 4;
+
         static int pastMeaningI;
         static int pastMeaningP;
-
         static int firstPlayerToWin;
         static int secondPlayerToWin;
         public static char[,] field;
@@ -23,7 +21,7 @@ namespace TicTacToe
 
         static void Main(string[] args)
         {
-            InitialScreen();           
+            InitialScreen();
             Console.ReadKey(true);
         }
         static void InitialScreen()
@@ -31,7 +29,7 @@ namespace TicTacToe
             Console.WriteLine("Привецтвую вас лUSERы");
             Console.ReadKey(true);
             int initialСhoice;
-           // Console.WriteLine("Введите порядковый номер дня недели:");
+            // Console.WriteLine("Введите порядковый номер дня недели:");
             Console.WriteLine("1)Играть");
             Console.WriteLine("2)Войти");
             Console.WriteLine("3)Настройки");
@@ -64,15 +62,15 @@ namespace TicTacToe
         static int UserInput()
         {
             return int.Parse(Console.ReadLine());
-        }        
+        }
         static void TwoPlayers()
         {
 
-            while ( true)
-            {                
+            while (true)
+            {
                 Console.WriteLine("ход 1 игрока");
                 PrintField(field);
-                PlayersStep(field,'X');
+                PlayersStep(field, 'X');
                 Console.Clear();
                 if (Win('X') == true)
                 {
@@ -93,38 +91,16 @@ namespace TicTacToe
                 }
             }
         }
-        static void PlayersStep(char[,] field,char Firstplaersumbol)//Доработаю
+        static void PlayersStep(char[,] field, char Firstplaersumbol)//Доработаю
         {
             Console.WriteLine("укажите столбик и ряд через пробел:");
             string s = Console.ReadLine();
             string[] array = s.Split(' ');
-            int move2 = (Int32.Parse(array[0]))-1;
-            int move = (Int32.Parse(array[1]))-1;
+            int move2 = (Int32.Parse(array[0])) - 1;
+            int move = (Int32.Parse(array[1])) - 1;
             field[move, move2] = Firstplaersumbol;
         }
-        static void PrintField(char[,] field)//Доработаю
-        {
-            for (int t = 0; t < width; t++)
-            {
-                Console.Write(" |");
-                for (int y = 0; y < length; y++)
-                {
-                    Console.Write(field[t, y] + "|");
-                }
-                Console.WriteLine();
-            }
-        }
-        static void FieldCleaning(char[,] field)//Доработаю
-        {
-            for (int t = 0; t < width; t++)
-            {
-                for (int y = 0; y < length; y++)
-                {
-                    Console.Write(field[t, y] = ' ');
-                }
-            }
-        }
-        static bool Win(char plaerSumbol)
+        static bool CheckWin(char plaerSumbol)
         {
 
             for (int i = 2; i < width; i++)
@@ -134,8 +110,8 @@ namespace TicTacToe
                     pastMeaningI = i; pastMeaningP = p;
                     if (field[p, i - 2] == plaerSumbol && field[p, i - 1] == plaerSumbol && field[p, i] == plaerSumbol) { return true; }// 3 в ряд
                     i = pastMeaningI; p = pastMeaningP;
-                    if (field[i - 2, p] == plaerSumbol && field[i - 1, p] == plaerSumbol && field[i, p] == plaerSumbol) {  return true; }// 3  по вертикали                   
-                }           
+                    if (field[i - 2, p] == plaerSumbol && field[i - 1, p] == plaerSumbol && field[i, p] == plaerSumbol) { return true; }// 3  по вертикали                   
+                }
                 for (int p = 2; p < length; p++)
                 {
                     pastMeaningI = i; pastMeaningP = p;
@@ -148,8 +124,42 @@ namespace TicTacToe
         }
         static void CounterWins()
         {
-            Console.WriteLine(firstPlayerToWin +  " / " + secondPlayerToWin);
+            Console.WriteLine(firstPlayerToWin + " / " + secondPlayerToWin);
         }
+    }
+    public class Players
+    {
+
+    }
+    public class PlayingField
+    {
+        static int width = 4;
+        static int length = 4;
+        static void PrintField(char[,] field)//Доработаю
+        {
+            for (int t = 0; t < width; t++)
+            {
+                Console.Write(" |");
+                for (int y = 0; y < length; y++)
+                {
+                    Console.Write(field[t, y] + "|");
+                }
+                Console.WriteLine();
+            }
+        }
+       static void FieldCleaning(char[,] field)//Доработаю
+        {
+            for (int t = 0; t < width; t++)
+            {
+                for (int y = 0; y < length; y++)
+                {
+                    Console.Write(field[t, y] = ' ');
+                }
+            }
+        }       
+    }
+    public class register
+    { 
         static void CheckIn()
         {
             Console.WriteLine("Имя главного игрока:");
