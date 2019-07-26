@@ -14,15 +14,17 @@ namespace TicTacToe
         char Firstplaersumbol;
         static void Main(string[] args)
         {
-            InitialScreen();
+            Start start = new Start();
+            start.InitialScreen();
             Console.ReadKey(true);
         }
-        static void InitialScreen()
+        public void InitialScreen()
         {
+            Play play = new Play();
+            Start start = new Start();
             Console.WriteLine("Привецтвую вас лUSERы");
             Console.ReadKey(true);
             int initialСhoice;
-            // Console.WriteLine("Введите порядковый номер дня недели:");
             Console.WriteLine("1)Играть");
             Console.WriteLine("2)Войти");
             Console.WriteLine("3)Настройки");
@@ -30,68 +32,68 @@ namespace TicTacToe
             switch (initialСhoice)
             {
                 case 1:
-                    Play.CreatePlayingField();
+                    play.NewGaem();
                     break;
-                //case 2:
-                //    CheckIn();
-                //    break;
-                //case 3:
-                //    Options();
-                //    break;
+                case 2:
+                    register.CheckIn();
+                    break;
+                    //case 3:
+                    //    Options();
+                    //    break;
             }
         }        
    }
    public class Play
    {
-        public static void CreatePlayingField()
+        public void NewGaem()
         {
-            PlayingField.field = new char[4, 4];
+            PlayingField playingField = new PlayingField();
+            playingField.field = new char[4, 4];
             while (true)
             {
                 FullMove();
-                PlayingField.CounterWins();
-                PlayingField.FieldCleaning(PlayingField.field);
+                playingField.CounterWins();
+                playingField.FieldCleaning(playingField.field);
                 Console.ReadKey(true);
                 Console.Clear();
             }
         }
-        public static int UserInput()
+        public int UserInput()
         {
             return int.Parse(Console.ReadLine());
         }
-        static void FullMove()
+        public void FullMove()
         {
-
+            PlayingField playingField = new PlayingField();
             while (true)
             {
-                Console.WriteLine("ход 1 игрока");
-                PlayingField.PrintField(PlayingField.field);
-                PlayersStep(PlayingField.field, 'X');
+                Console.WriteLine("ход "+ /*PlayerName + */ " игрока");
+                playingField.PrintField(playingField.field);
+                PlayersStep(playingField.field, 'X');
                 Console.Clear();
-                if (PlayingField.CheckWin('X') == true)
+
+                if (playingField.CheckWin('X') == true)
                 {
                     Console.WriteLine("ход 1 игрока");
-                    PlayingField.PrintField(PlayingField.field);
+                    playingField.PrintField(playingField.field);
                     Console.WriteLine("Победа 1 игрока");
                     Console.ReadKey(true);
                     Console.Clear();
-                    PlayingField.firstPlayerToWin++;
-                    //Console.ReadKey(true);
+                    playingField.firstPlayerToWin++;
                     break;
                 }
-                //Console.WriteLine("ход 2 игрока");
+                //Console.WriteLine("ход 1 игрока");
                 //PlayingField.PrintField(PlayingField.field);
-                //PlayersStep(PlayingField.field, 'O');
+                //Console.WriteLine("Победа 1 игрока");
+                //Console.ReadKey(true);
                 //Console.Clear();
-                //if (PlayingField.CheckWin('O') == true)
-                //{
-                //    Console.WriteLine("Победа 2 игрока");
+                //PlayingField.firstPlayerToWin++;
                 //    PlayingField.secondPlayerToWin++;
                 //    break;
                 //}
             }
         }
-        static void PlayersStep(char[,] field, char plaerSumbol)//Принимает числа через пробел и указывает кординату X
+        public void PlayersStep(char[,] field, char plaerSumbol)//Принимает числа через пробел и указывает кординату X
         {
             Console.WriteLine("укажите столбик и ряд через пробел:");
             string s = Console.ReadLine();
@@ -104,20 +106,28 @@ namespace TicTacToe
    }
    public class Players
     {
-        static string Name;
-        static int KauntWin;
-
+        private string Name;
+        int KauntWin;
+        public Players(string Name, int KauntWin)
+        {
+            this.Name=Name;
+            this.KauntWin = KauntWin;
+        }
+        //Players Player1 = new Players(Name);
+        //Players Player2 = new Players();
 
 
     }
    public class PlayingField
    {
-        public static char[,] field;
-        public static int firstPlayerToWin;
-        public static int secondPlayerToWin;
-        public static int width = 4;
-       static int length = 4;
-       public static void PrintField(char[,] field)//Доработаю
+        public char[,] field;
+        public int firstPlayerToWin;
+        public int secondPlayerToWin;
+        public int width = 4;
+        int length = 4;
+        //PlayingField playingField = new PlayingField();
+        //playingField.CheckWin
+        public void PrintField(char[,] field)//Доработаю
         {
             for (int t = 0; t < width; t++)
             {
@@ -129,7 +139,7 @@ namespace TicTacToe
                 Console.WriteLine();
             }
         }
-       public static void FieldCleaning(char[,] field)//Доработаю
+        public void FieldCleaning(char[,] field)//Доработаю
        {
             for (int t = 0; t < width; t++)
             {
@@ -138,8 +148,8 @@ namespace TicTacToe
                     field[t, y] = ' ';
                 }
             }          
-        }
-        public static bool CheckWin(char plaerSumbol)
+       }
+        public bool CheckWin(char plaerSumbol)
         {
             int pastMeaningI;
             int pastMeaningP;
@@ -163,36 +173,37 @@ namespace TicTacToe
             }
             return false;
         }
-        public static void CounterWins()
+        public void CounterWins()
         {
-            Console.WriteLine(firstPlayerToWin + " / " + secondPlayerToWin);
+           Console.WriteLine(firstPlayerToWin + " / " + secondPlayerToWin);
         }
-    }
-    public class register
-    { 
-        static void CheckIn()
+   }
+   public class register
+    {
+        public static void CheckIn()
         {
-        //    Console.WriteLine("Имя главного игрока:");
-        //    string mainPlayerName = Console.ReadLine();
-        //    Console.WriteLine("Имя второго игрока:");
-        //    string playerNameSecond = Console.ReadLine();
-        //    FileStream file1 = new FileStream("E:\\Name\\" + mainPlayerName + ".txt", FileMode.OpenOrCreate); //создаем файловый поток
-        //    StreamWriter writer = new StreamWriter(file1); //создаем «потоковый писатель» и связываем его с файловым потоком 
-        //    writer.Write(width /*fieldSize*/); //записываем в файл
-        //    writer.Close(); //закрываем поток. Не закрыв поток, в файл ничего не запишется 
-        //    Console.WriteLine("Для возвращения в меню нажмите любую клавишу..");
-        //    Console.ReadKey(true);
-        //    Console.Clear();
-        //    InitialScreen();
-        //}
-        //static void Options()
-        //{
-        //    Console.WriteLine("Выберите размер поля");
-        //    width = length = UserInput();
-        //    Console.WriteLine("Для возвращения в меню нажмите любую клавишу...");
-        //    Console.ReadKey(true);
-        //    Console.Clear();
-        //    InitialScreen();
+            Start start = new Start();
+            Console.WriteLine("Имя первого игрока:");
+            Players Player1 = new Players(Console.ReadLine(),0); /*(Console.ReadLine());*/
+            Console.WriteLine("Имя второго игрока:");
+            Players Player2 = new Players(Console.ReadLine(),0);
+            //FileStream file1 = new FileStream("E:\\Name\\" + Name + ".txt", FileMode.OpenOrCreate); //создаем файловый поток
+            //StreamWriter writer = new StreamWriter(file1); //создаем «потоковый писатель» и связываем его с файловым потоком 
+            //writer.Write(width /*fieldSize*/); //записываем в файл
+            //writer.Close(); //закрываем поток. Не закрыв поток, в файл ничего не запишется 
+            Console.WriteLine("Для возвращения в меню нажмите любую клавишу..");
+            Console.ReadKey(true);
+            Console.Clear();
+            start.InitialScreen();
+        }
+        static void Options()
+        {
+            //Console.WriteLine("Выберите размер поля");
+            //width = length = UserInput();
+            //Console.WriteLine("Для возвращения в меню нажмите любую клавишу...");
+            //Console.ReadKey(true);
+            //Console.Clear();
+            //InitialScreen();
         }
     }
 }
