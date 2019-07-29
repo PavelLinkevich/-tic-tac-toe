@@ -62,21 +62,13 @@ namespace TicTacToe
                 }
             }
         }
-        public void PlayersStep(char[,] field, char plaerSumbol)//Принимает числа через пробел и указывает кординату x
+        public void PlayersStep(char[,] field, char playerSymbol)//Принимает числа через пробел и указывает кординату x
         {
             Console.WriteLine("укажите столбик и ряд через пробел:");
             var coordinate=Helper.UserInput();
             int y = coordinate[0] - 1;
             int x = coordinate[i] - 1;
-            field[x, y] = plaerSumbol;//переименовать
-        }
-        //public void PlayersStep1(char[,] field, char plaerSumbol)
-        //{
-        //    string s = Console.ReadLine();           
-        //    string[] array = s.Split(' ');
-        //    array.Count();
-        //    if (array.Count() <= 2) { array[1] = array[0]; }
-        //}
-
+            field[x, y] = playerSymbol;//переименовать
+        }       
     }
 }
