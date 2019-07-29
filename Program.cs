@@ -9,8 +9,8 @@ using System.IO;
 
 namespace TicTacToe
 {
-   public class Start
-   {
+    public class Start
+    {
         char Firstplaersumbol;
         static void Main(string[] args)
         {
@@ -21,90 +21,30 @@ namespace TicTacToe
         public void InitialScreen()
         {
             Play play = new Play();
-            Start start = new Start();
+            Register register = new Register();
+            //Start start = new Start();
             Console.WriteLine("Привецтвую вас лUSERы");
             Console.ReadKey(true);
             int initialСhoice;
             Console.WriteLine("1)Играть");
             Console.WriteLine("2)Войти");
             Console.WriteLine("3)Настройки");
-            initialСhoice = Convert.ToInt32(Console.ReadLine());
+            initialСhoice = Helper.UserInput()[0];
             switch (initialСhoice)
             {
                 case 1:
-                    play.NewGaem();
+                    play.NewGame();
                     break;
                 case 2:
                     register.CheckIn();
                     break;
-                    //case 3:
-                    //    Options();
-                    //    break;
-            }
-        }        
-   }
-   public class Play
-   {
-        public void NewGaem()
-        {
-            PlayingField playingField = new PlayingField();
-            playingField.field = new char[4, 4];
-            while (true)
-            {
-                FullMove();
-                playingField.CounterWins();
-                playingField.FieldCleaning(playingField.field);
-                Console.ReadKey(true);
-                Console.Clear();
-            }
-        }
-        public int UserInput()
-        {
-            return int.Parse(Console.ReadLine());
-        }
-        public void FullMove()
-        {
-            PlayingField playingField = new PlayingField();
-            while (true)
-            {
-                Console.WriteLine("ход "+ /*PlayerName + */ " игрока");
-                playingField.PrintField(playingField.field);
-                PlayersStep(playingField.field, 'X');
-                Console.Clear();
-
-                if (playingField.CheckWin('X') == true)
-                {
-                    Console.WriteLine("ход 1 игрока");
-                    playingField.PrintField(playingField.field);
-                    Console.WriteLine("Победа 1 игрока");
-                    Console.ReadKey(true);
-                    Console.Clear();
-                    playingField.firstPlayerToWin++;
+                case 3:
+                    register.Options();
                     break;
-                }
-                //Console.WriteLine("ход 1 игрока");
-                //PlayingField.PrintField(PlayingField.field);
-                //Console.WriteLine("Победа 1 игрока");
-                //Console.ReadKey(true);
-                //Console.Clear();
-                //PlayingField.firstPlayerToWin++;
-                //    PlayingField.secondPlayerToWin++;
-                //    break;
-                //}
             }
         }
-        public void PlayersStep(char[,] field, char plaerSumbol)//Принимает числа через пробел и указывает кординату X
-        {
-            Console.WriteLine("укажите столбик и ряд через пробел:");
-            string s = Console.ReadLine();
-            string[] array = s.Split(' ');
-            int move2 = (Int32.Parse(array[0])) - 1;
-            int move = (Int32.Parse(array[1])) - 1;
-            field[move, move2] = plaerSumbol;
-        }
-
-   }
-   public class Players
+    }  
+    public class Players
     {
         private string Name;
         int KauntWin;
@@ -121,18 +61,23 @@ namespace TicTacToe
    public class PlayingField
    {
         public char[,] field;
+        //private char[,] field;
         public int firstPlayerToWin;
         public int secondPlayerToWin;
-        public int width = 4;
-        int length = 4;
-        //PlayingField playingField = new PlayingField();
-        //playingField.CheckWin
+        public static int Width1 { get; set; }// ?
+        public static int Height1 { get; set; }
+        public PlayingField(int width, int height)
+        {
+            Width1 = width;
+            Height1 = height;
+            field = new char[width, height];
+        }
         public void PrintField(char[,] field)//Доработаю
         {
-            for (int t = 0; t < width; t++)
+            for (int t = 0; t < Width1; t++)
             {
                 Console.Write(" |");
-                for (int y = 0; y < length; y++)
+                for (int y = 0; y < Height1; y++)
                 {
                     Console.Write(field[t, y] + "|");
                 }
@@ -140,15 +85,15 @@ namespace TicTacToe
             }
         }
         public void FieldCleaning(char[,] field)//Доработаю
-       {
-            for (int t = 0; t < width; t++)
+        {
+            for (int t = 0; t < Width1; t++)
             {
-                for (int y = 0; y < length; y++)
+                for (int y = 0; y < Height1; y++)
                 {
                     field[t, y] = ' ';
                 }
             }          
-       }
+        }
         public bool CheckWin(char plaerSumbol)
         {
             int pastMeaningI;
@@ -178,9 +123,9 @@ namespace TicTacToe
            Console.WriteLine(firstPlayerToWin + " / " + secondPlayerToWin);
         }
    }
-   public class register
-    {
-        public static void CheckIn()
+   public class Register
+   {
+        public void CheckIn()
         {
             Start start = new Start();
             Console.WriteLine("Имя первого игрока:");
@@ -196,14 +141,16 @@ namespace TicTacToe
             Console.Clear();
             start.InitialScreen();
         }
-        static void Options()
+        public void Options()
         {
-            //Console.WriteLine("Выберите размер поля");
-            //width = length = UserInput();
-            //Console.WriteLine("Для возвращения в меню нажмите любую клавишу...");
-            //Console.ReadKey(true);
-            //Console.Clear();
-            //InitialScreen();
+            Play play = new Play();
+            Start start = new Start();
+            Console.WriteLine("Выберите размер поля");
+            PlayingField.Width1 = PlayingField.Height1 = Helper.UserInput()[0];
+            Console.WriteLine("Для возвращения в меню нажмите любую клавишу...");
+            Console.ReadKey(true);
+            Console.Clear();
+            start.InitialScreen();
         }
-    }
+   }
 }
