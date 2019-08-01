@@ -8,6 +8,7 @@ namespace TicTacToe
 {
     public class Play
     {
+        public static int Step = 1;
         public static int i = 1;
         public void NewGame()
         {
@@ -34,18 +35,19 @@ namespace TicTacToe
                 y = coordinate[0] - 1;
                 x = coordinate[1] - 1;
             }
-            playingField.Сoordinator('X', x, y);
+            playingField.TСoordinator('X', x, y);
         }
         public void FullMove(PlayingField playingField)
         {
             while (true)
             {
+                Step = Step *- 1;
                 Console.WriteLine("ход " + /*PlayerName + */ "1 игрока");
                 playingField.PrintField();
                 Console.WriteLine("укажите столбик и ряд через пробел:");
                 MakeStep(playingField,'X');
                 chekWin(playingField);
-
+                Step = Step * -1;
                 Console.WriteLine("ход " + /*PlayerName + */ "2 игрока");
                 playingField.PrintField();
                 Console.WriteLine("укажите столбик и ряд через пробел:");
@@ -53,7 +55,7 @@ namespace TicTacToe
                 chekWin(playingField);
             }
         }
-        public bool chekWin(PlayingField playingField)
+        public bool chekWin(PlayingField playingField)//Переименовать
         {
             if (playingField.CheckWin('X'))
             {
@@ -67,6 +69,6 @@ namespace TicTacToe
                 return true;
             }
             else { return false; }
-        }  
+        }
     }
 }

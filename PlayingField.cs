@@ -9,7 +9,7 @@ namespace TicTacToe
     public class PlayingField
     {
         public static int i = 1;
-        private char[,] field;
+        private bool?[,] field;
         public int firstPlayerToWin;
         public int secondPlayerToWin;
         public static int Width1 { get; set; }// ?
@@ -18,9 +18,9 @@ namespace TicTacToe
         {
             Width1 = width;
             Height1 = height;
-            field = new char[width, height];
+            field = new bool?[width, height];
         }
-        public void PrintField()//Доработаю
+        public void PrintField()
         {
             for (int t = 0; t < Width1; t++)
             {
@@ -31,8 +31,8 @@ namespace TicTacToe
                 }
                 Console.WriteLine();
             }
-        }       
-        public bool CheckWin(char plaerSumbol)
+        }
+        public bool CheckWin(char @true)
         {
             int pastMeaningI;
             int pastMeaningP;
@@ -42,16 +42,33 @@ namespace TicTacToe
                 for (int p = 0; p < 4; p++)
                 {
                     pastMeaningI = i; pastMeaningP = p;
-                    if (field[p, i - 2] == plaerSumbol && field[p, i - 1] == plaerSumbol && field[p, i] == plaerSumbol) { return true; }// 3 в ряд
+                    if (field[p, i - 2] == true && field[p, i - 1] == true && field[p, i] == true) { return true; }// 3 в ряд
                     i = pastMeaningI; p = pastMeaningP;
-                    if (field[i - 2, p] == plaerSumbol && field[i - 1, p] == plaerSumbol && field[i, p] == plaerSumbol) { return true; }// 3  по вертикали                   
+                    if (field[i - 2, p] == true && field[i - 1, p] == true && field[i, p] == true) { return true; }// 3  по вертикали                   
                 }
                 for (int p = 2; p < 4; p++)
                 {
                     pastMeaningI = i; pastMeaningP = p;
-                    if (field[i - 2, p - 2] == plaerSumbol && field[i - 1, p - 1] == plaerSumbol && field[i, p] == plaerSumbol) { return true; }// 3  по диаганали
+                    if (field[i - 2, p - 2] == true && field[i - 1, p - 1] == true && field[i, p] == true) { return true; }// 3  по диаганали
                     i = pastMeaningI; p = pastMeaningP;
-                    if (field[p - 2, i] == plaerSumbol && field[p - 1, i - 1] == plaerSumbol && field[p, i - 2] == plaerSumbol) { return true; }
+                    if (field[p - 2, i] == true && field[p - 1, i - 1] == true && field[p, i - 2] == true) { return true; }
+                }
+            }
+            for (int i = 2; i < 4; i++)
+            {
+                for (int p = 0; p < 4; p++)
+                {
+                    pastMeaningI = i; pastMeaningP = p;
+                    if (field[p, i - 2] == false && field[p, i - 1] == false && field[p, i] == false) { return true; }// 3 в ряд
+                    i = pastMeaningI; p = pastMeaningP;
+                    if (field[i - 2, p] == false && field[i - 1, p] == false && field[i, p] == false) { return true; }// 3  по вертикали                   
+                }
+                for (int p = 2; p < 4; p++)
+                {
+                    pastMeaningI = i; pastMeaningP = p;
+                    if (field[i - 2, p - 2] == false && field[i - 1, p - 1] == false && field[i, p] == false) { return true; }// 3  по диаганали
+                    i = pastMeaningI; p = pastMeaningP;
+                    if (field[p - 2, i] == false && field[p - 1, i - 1] == false && field[p, i - 2] == false) { return true; }
                 }
             }
             return false;
@@ -60,9 +77,11 @@ namespace TicTacToe
         {
             Console.WriteLine(firstPlayerToWin + " / " + secondPlayerToWin);
         }
-        public void Сoordinator(char playerSymbol,int x,int y)//Принимает числа через пробел и указывает кординату x
+        public void TСoordinator(char playerSymbol,int x,int y)//Принимает числа через пробел и указывает кординату x
         {
-            field[x, y] = playerSymbol;
+            if (Play.Step==1) { field[x, y] = true; }
+            else { field[x, y] = false; }
         }
+       
     }
 }
