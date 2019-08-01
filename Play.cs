@@ -11,64 +11,62 @@ namespace TicTacToe
         public static int i = 1;
         public void NewGame()
         {
-            PlayingField playingField = new PlayingField(Configuration.Height, Configuration.Width);//Переменовать
-            //playingField.field = new char[];//?
             while (true)
             {
-                playingField.FieldCleaning(playingField.field);
-                FullMove();
-                playingField.FieldCleaning(playingField.field);
+            var playingField = new PlayingField(Configuration.Height, Configuration.Width);
+                FullMove(playingField);
                 Console.ReadKey(true);
                 Console.Clear();
             }
         }
-        public void FullMove()
+        public void MakeStep(PlayingField playingField, char playerSymbol)
         {
-            PlayingField playingField = new PlayingField(Configuration.Height, Configuration.Width);
+            int[] coordinate = Helper.UserInput();
+            int y;
+            int x;
+            if (coordinate.Count() < 2)
+            {
+                y = coordinate[0] - 1;
+                x = coordinate[0] - 1;
+            }
+            else
+            {
+                y = coordinate[0] - 1;
+                x = coordinate[1] - 1;
+            }
+            playingField.Сoordinator('X', x, y);
+        }
+        public void FullMove(PlayingField playingField)
+        {
             while (true)
             {
                 Console.WriteLine("ход " + /*PlayerName + */ "1 игрока");
-                playingField.PrintField(playingField.field);
-                PlayersStep(playingField.field, 'X');
-                Console.Clear();
+                playingField.PrintField();
+                Console.WriteLine("укажите столбик и ряд через пробел:");
+                MakeStep(playingField,'X');
+                chekWin(playingField);
 
-                if (playingField.CheckWin('X') == true)
-                {
-                    Console.WriteLine("ход 1 игрока");
-                    playingField.PrintField(playingField.field);
-                    Console.WriteLine("Победа 1 игрока");
-                    Console.ReadKey(true);
-                    Console.Clear();
-                    playingField.firstPlayerToWin++;
-                    playingField.CounterWins();
-                    break;
-                }
                 Console.WriteLine("ход " + /*PlayerName + */ "2 игрока");
-                playingField.PrintField(playingField.field);
-                PlayersStep(playingField.field, 'O');
-                Console.Clear();
-
-                if (playingField.CheckWin('X') == true)
-                {
-                    Console.WriteLine("ход 2 игрока");
-                    playingField.PrintField(playingField.field);
-                    Console.WriteLine("Победа 2 игрока");
-                    Console.ReadKey(true);
-                    Console.Clear();
-                    playingField.firstPlayerToWin++;
-                    Console.WriteLine(playingField.firstPlayerToWin);
-                    playingField.CounterWins();
-                    break;
-                }
+                playingField.PrintField();
+                Console.WriteLine("укажите столбик и ряд через пробел:");
+                MakeStep(playingField,'0');
+                chekWin(playingField);
             }
         }
-        public void PlayersStep(char[,] field, char playerSymbol)//Принимает числа через пробел и указывает кординату x
+        public bool chekWin(PlayingField playingField)
         {
-            Console.WriteLine("укажите столбик и ряд через пробел:");
-            var coordinate=Helper.UserInput();
-            int y = coordinate[0] - 1;
-            int x = coordinate[i] - 1;
-            field[x, y] = playerSymbol;//переименовать
-        }       
+            if (playingField.CheckWin('X'))
+            {
+                Console.WriteLine("ход 1 игрока");
+                playingField.PrintField();
+                Console.WriteLine("Победа 1 игрока");
+                Console.ReadKey(true);
+                Console.Clear();
+                playingField.firstPlayerToWin++;
+                playingField.CounterWins();
+                return true;
+            }
+            else { return false; }
+        }  
     }
 }

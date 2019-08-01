@@ -13,7 +13,6 @@ namespace TicTacToe
         {
             Play play = new Play();
             Register register = new Register();
-            //Start start = new Start();
             Console.WriteLine("Привецтвую вас лUSERы");
             Console.ReadKey(true);
             int initialСhoice;

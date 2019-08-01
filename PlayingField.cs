@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace TicTacToe
-{
+{    
     public class PlayingField
     {
-        public char[,] field;
-        //private char[,] field;
+        public static int i = 1;
+        private char[,] field;
         public int firstPlayerToWin;
         public int secondPlayerToWin;
         public static int Width1 { get; set; }// ?
@@ -20,7 +20,7 @@ namespace TicTacToe
             Height1 = height;
             field = new char[width, height];
         }
-        public void PrintField(char[,] field)//Доработаю
+        public void PrintField()//Доработаю
         {
             for (int t = 0; t < Width1; t++)
             {
@@ -31,17 +31,7 @@ namespace TicTacToe
                 }
                 Console.WriteLine();
             }
-        }
-        public void FieldCleaning(char[,] field)//Доработаю
-        {
-            for (int t = 0; t < Width1; t++)
-            {
-                for (int y = 0; y < Height1; y++)
-                {
-                    field[t, y] = ' ';
-                }
-            }
-        }
+        }       
         public bool CheckWin(char plaerSumbol)
         {
             int pastMeaningI;
@@ -69,6 +59,10 @@ namespace TicTacToe
         public void CounterWins()
         {
             Console.WriteLine(firstPlayerToWin + " / " + secondPlayerToWin);
+        }
+        public void Сoordinator(char playerSymbol,int x,int y)//Принимает числа через пробел и указывает кординату x
+        {
+            field[x, y] = playerSymbol;
         }
     }
 }
